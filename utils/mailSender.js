@@ -12,7 +12,7 @@ const mailSender = async (email, title, body) => {
         });
 
         await transporter.sendMail({
-            from: 'Vanvir Singh - deoravanvirsinh7773@gmail.com',
+            from: 'Snippet Sphere - deoravanvirsinh7773@gmail.com',
             to: email,
             subject: title,
             html: body,
