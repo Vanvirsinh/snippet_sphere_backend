@@ -1,0 +1,31 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "This is an API of Snippet Sphere. A complete cloude-based snip\u001b[C\u001bcode snippet manager.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vanvirsinh/snippet_sphere_backend.git"
+  },
+  "keywords": [
+    "Code",
+    "Snippet",
+    "Manager",
+    "Codemafias"
+  ],
+  "author": "Vanvirsinh Deora",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Vanvirsinh/snippet_sphere_backend/issues"
+  },
+  "homepage": "https://github.com/Vanvirsinh/snippet_sphere_backend#readme",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^8.0.3"
+  }
+}
