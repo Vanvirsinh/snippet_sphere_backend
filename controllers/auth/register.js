@@ -39,13 +39,13 @@ const register = async (req, res) => {
         // Validatating inputs 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).send({ success:false, errors: errors.array() });
+            return res.status(400).send({ success: false, errors: errors.array() });
         }
 
         // Validating OTP
         const response = await OTP.findOne({ email }).sort({ createdAt: -1 }).limit(1);
 
-        if(!response) {
+        if (!response) {
             return res.status(400).send({ success: false, message: "OTP is not valid!" });
         }
 
@@ -66,11 +66,10 @@ const register = async (req, res) => {
                 }
                 return res.status(200).send({ success: true, message: "You're registered successfully!", token })
             })
-        })
+        }).catch(() => res.status(400).send({ success: false, message: 'Error occured while registering user!' }))
 
     } catch (error) {
-        console.log(error);
-        res.status(500).send({ success: false, message: error.message });
+        return res.status(500).send({ success: false, message: error.message });
     }
 }
 

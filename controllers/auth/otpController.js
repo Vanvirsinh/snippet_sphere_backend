@@ -18,12 +18,12 @@ const sendOtp = async (req, res) => {
 
         newOtp.save()
             .then(() => {
-                res.status(200).send({
+                return res.status(200).send({
                     success: true,
                     message: "OTP sent successfully!"
                 })
             }).catch(err => {
-                res.status(400).send({
+                return res.status(400).send({
                     success: false,
                     message: "Failed to send an OTP!",
                     err
