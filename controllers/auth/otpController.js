@@ -16,7 +16,7 @@ const sendOtp = async (req, res) => {
             otp
         });
 
-        newOtp.save()
+        return newOtp.save()
             .then(() => {
                 return res.status(200).send({
                     success: true,

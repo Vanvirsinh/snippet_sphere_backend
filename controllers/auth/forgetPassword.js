@@ -51,11 +51,12 @@ const forgetPassword = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, salt);
 
         // Updating the collection
-        const updatedUser = User.updateOne({ email }, { $set: { password: hashedPassword } });
-
-        updatedUser
-            .then(() => res.status(200).send({ success: true, message: 'Password updated successfully. Please login!' }))
-            .catch(() => res.status(400).send({ success: false, message: 'Error occured while updating password!' }));
+        await User.updateOne({ email }, { $set: { password: hashedPassword } });
+        try {
+            return res.status(200).send({ success: true, message: 'Password updated successfully. Please login!' })
+        } catch {
+            return res.status(400).send({ success: false, message: 'Error occured while updating password!' })
+        }
 
     } catch (error) {
         return res.status(500).send({ success: false, message: error.message });

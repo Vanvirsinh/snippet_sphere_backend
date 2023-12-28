@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { getDate } = require('../../utils/date');
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -18,6 +19,10 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    createdAt: {
+        type: String,
+        default: getDate
     }
 });
 

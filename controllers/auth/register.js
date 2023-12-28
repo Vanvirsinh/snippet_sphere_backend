@@ -4,7 +4,13 @@ const OTP = require('../../models/auth/otpModel');
 const { body, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 
+const userNameRegExValidator = (value) => {
+    const userNameRegex = /^[a-zA-Z\-_]+$/;
+    return userNameRegex.test(value);
+}
+
 const userNameValidator = async (value) => {
+
     const user = await User.findOne({ username: value });
     if (user) {
         throw new Error('Username already in use!');
@@ -27,9 +33,10 @@ const passwordValidator = (value) => {
 
 const validateUserRegistration = [
     body('name').notEmpty().withMessage('Name is required!').isLength({ min: 3 }).withMessage('Name must be at least 3 characters long!').isLength({ max: 30 }).withMessage('Name must be within 30 characters long!'),
-    body('username').custom(userNameValidator).withMessage('Username alredy exists!').notEmpty().withMessage("Username is required!").isLength({ min: 3 }).withMessage('Username must be at least 3 characters long!').isLength({ max: 30 }).withMessage('Username must be within 30 characters long!'),
+    body('username').custom(userNameRegExValidator).withMessage('Username should only contain, letter, hyphens (-), and underscores (_)!').custom(userNameValidator).withMessage('Username alredy exists!').notEmpty().withMessage("Username is required!").isLength({ min: 3 }).withMessage('Username must be at least 3 characters long!').isLength({ max: 30 }).withMessage('Username must be within 30 characters long!'),
     body('email').isEmail().withMessage("Enter a valid Email address!").custom(emailValidator).withMessage('Email address already exists!'),
-    body('password').custom(passwordValidator).withMessage('Password must be at least 8 characters, contain at least one uppercase letter, one lowercase letter, one number, and one special character!').isLength({ max: 30 }).withMessage("Password should not be more than 30 characters long!")
+    body('password').custom(passwordValidator).withMessage('Password must be at least 8 characters, contain at least one uppercase letter, one lowercase letter, one number, and one special character!').isLength({ max: 30 }).withMessage("Password should not be more than 30 characters long!"),
+    body('otp').notEmpty().withMessage('Please Enter your OTP!')
 ]
 
 const register = async (req, res) => {
@@ -57,9 +64,9 @@ const register = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        const user = new User({ name, username, email, password: hashedPassword });
+        const user = new User({ name, username: username.toLowerCase(), email, password: hashedPassword });
 
-        user.save().then((newUser) => {
+        return user.save().then((newUser) => {
             jwt.sign({ id: newUser.id }, process.env.JWT_SECRET, (err, token) => {
                 if (err) {
                     return res.status(500).send({ success: false, message: 'Error occured while generating token!' });
