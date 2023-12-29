@@ -10,9 +10,9 @@ const { fetchSingleCollection } = require('../../controllers/collection/fetchSin
 
 router.post('/', fetchUser, validateCreateCollection, createCollection);
 router.get('/', fetchAllCollections);
-router.get('/:username', isAuthenticated, fetchUserSpecifiCollections);
 router.put('/update/:id', fetchUser, validateUpdateCollection, updateCollection);
 router.delete('/delete/:id', fetchUser, deleteCollection);
+router.get('/:username', isAuthenticated, fetchUserSpecifiCollections);
 router.get('/:username/:id', isAuthenticated, fetchSingleCollection);
 
 module.exports = router;

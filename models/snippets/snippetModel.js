@@ -13,7 +13,7 @@ const snippetSchema = new mongoose.Schema({
     },
     collectionId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Collection',
         required: true
     },
     snippetId: {
@@ -32,10 +32,6 @@ const snippetSchema = new mongoose.Schema({
     language: {
         type: String,
         required: true
-    },
-    tags: {
-        type: [String],
-        default: []
     },
     description: {
         type: String

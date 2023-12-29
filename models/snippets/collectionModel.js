@@ -20,10 +20,6 @@ const collectionSchema = new mongoose.Schema({
         maxLength: 80,
         required: true
     },
-    snippets: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Snippet'
-    }],
     isPublic: {
         type: Boolean,
         default: true
