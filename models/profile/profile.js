@@ -3,7 +3,7 @@ const { getDate } = require('../../utils/date');
 
 const profileSchema = new mongoose.Schema({
     userId: {
-        type: mongoose.Schema.Types.ObjectId, // Assuming reference to the user document
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
         unique: true
     },

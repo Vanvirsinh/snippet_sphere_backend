@@ -2,7 +2,7 @@ const UserProfile = require('../../models/profile/profile');
 
 const getUserProfile = async (req, res) => {
     try {
-        const profile = await UserProfile.findOne({ userId: req.user.id })
+        const profile = await UserProfile.findOne({ userId: req.params.id })
 
         try {
             if (!profile) {
@@ -14,7 +14,7 @@ const getUserProfile = async (req, res) => {
             return res.status(400).send({ success: false, message: "Error occured while fetching profile data!" });
         }
 
-    } catch {
+    } catch(error) {
         return res.status(500).send({ success: false, message: error.message });
     }
 }
