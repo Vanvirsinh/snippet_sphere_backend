@@ -19,6 +19,12 @@ const updateSnippet = async (req, res) => {
 
         const { title, code, language, description } = req.body;
 
+        const snippet = await Snippet.findOne({ _id: req.params.id, authorId: req.user.id });
+
+        if(!snippet) {
+            return res.status(400).send({ success: false, message: 'Snippet not found!' });
+        }
+
         // Update the snippet
         await Snippet.updateOne({ _id: req.params.id }, { $set: { title, code, language, description, updatedAt: getDate() } });
         try {

@@ -1,8 +1,10 @@
 const bcrypt = require('bcrypt');
 const User = require('../../models/auth/userModel');
 const OTP = require('../../models/auth/otpModel');
+const UserProfile = require('../../models/profile/profile');
 const { body, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
+const { getDate } = require('../../utils/date');
 
 const userNameRegExValidator = (value) => {
     const userNameRegex = /^[a-zA-Z\-_]+$/;
@@ -67,11 +69,22 @@ const register = async (req, res) => {
         const user = new User({ name, username: username.toLowerCase(), email, password: hashedPassword });
 
         return user.save().then((newUser) => {
-            jwt.sign({ id: newUser.id }, process.env.JWT_SECRET, (err, token) => {
+            return jwt.sign({ id: newUser.id }, process.env.JWT_SECRET, async (err, token) => {
                 if (err) {
                     return res.status(500).send({ success: false, message: 'Error occured while generating token!' });
                 }
-                return res.status(200).send({ success: true, message: "You're registered successfully!", token })
+
+                const newUserProfile = new UserProfile({
+                    userId: newUser.id,
+                    updatedAt: getDate()
+                });
+
+                await newUserProfile.save();
+                try {
+                    return res.status(200).send({ success: true, message: "You're registered successfully!", token })
+                } catch {
+                    return res.status(400).send({ success: false, message: 'Error occured while saving profile!' })
+                }
             })
         }).catch(() => res.status(400).send({ success: false, message: 'Error occured while registering user!' }))
 

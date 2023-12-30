@@ -2,11 +2,11 @@ const UserProfile = require('../../models/profile/profile');
 
 const getUserProfile = async (req, res) => {
     try {
-        const profile = await UserProfile.findOne({ userId: req.params.id })
+        const profile = await UserProfile.findOne({ userId: req.params.id });
 
         try {
             if (!profile) {
-                return res.status(400).send({ success: false, message: "Profile is not created yet!" });
+                return res.status(400).send({ success: false, message: "Profile is not found!" });
             }
             return res.status(200).send({ success: true, profile });
 

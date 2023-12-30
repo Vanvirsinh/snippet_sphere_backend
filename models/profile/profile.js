@@ -15,10 +15,10 @@ const profileSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
-    followers: {
-        type: Number,
-        default: 0
-    },
+    followers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
     personalEmail: {
         type: String
     },

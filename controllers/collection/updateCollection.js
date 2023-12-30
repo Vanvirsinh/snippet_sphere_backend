@@ -16,6 +16,12 @@ const updateCollection = async (req, res) => {
 
         const { name, isPublic } = req.body;
 
+        const collection = await Collection.findOne({ _id: req.params.id, authorId: req.user.id });
+
+        if(!collection) {
+            return res.status(400).send({ success: false, message: 'Collection not found!' });
+        }
+
         // Update the collection
         await Collection.updateOne({ _id: req.params.id }, { $set: { name, isPublic, updatedAt: getDate() } });
         try {

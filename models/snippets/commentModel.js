@@ -4,7 +4,17 @@ const { getDate } = require('../../utils/date');
 const commentSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true
+        ref: 'User'
+    },
+    userName: {
+        type: String
+    },
+    userProfileImage: {
+        type: String,
+    },
+    snippetId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Snippet'
     },
     userComment: {
         type: String,
