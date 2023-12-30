@@ -8,7 +8,7 @@ const followUser = async (req, res) => {
         const userToFollow = await User.findById(req.params.userId);
 
         if (!userToFollow) {
-            return res.status(404).json({ message: 'User not found' });
+            return res.status(404).send({ success: false, message: 'User not found' });
         }
 
         const profile = await UserProfile.findOne({ userId: req.params.userId });
@@ -21,7 +21,7 @@ const followUser = async (req, res) => {
 
         await profile.save();
         try {
-            return res.status(201).send({ success: true, message: 'Follower removed!' })
+            return res.status(201).send({ success: true, message: 'User Followed!' })
         } catch (error) {
             return res.status(400).send({ success: false, message: error.message })
         }

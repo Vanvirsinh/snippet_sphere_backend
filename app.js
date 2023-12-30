@@ -8,6 +8,7 @@ const collectionRoute = require('./routes/snippets/collection');
 const snippetRoute = require('./routes/snippets/snippetRoute');
 const followRoute = require('./routes/profile/followRoute');
 const commentRoute = require('./routes/snippets/commentRoute');
+const likeRoute = require('./routes/snippets/likeRoute');
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use('/api/collection', collectionRoute);
 app.use('/api/snippet', snippetRoute);
 app.use('/api/follow', followRoute);
 app.use('/api/comment', commentRoute);
+app.use('/api/like', likeRoute);
 
 const port = process.env.PORT;
 

@@ -1,4 +1,5 @@
 const Snippet = require('../../models/snippets/snippetModel');
+const Comment = require('../../models/snippets/commentModel');
 
 const deleteSnippet = async (req, res) => {
     try {
@@ -10,6 +11,7 @@ const deleteSnippet = async (req, res) => {
         }
 
         await Snippet.deleteOne({_id: req.params.id, authorId: req.user.id});
+        await Comment.deleteMany({ snippetId: req.params.id });
         
         try {
             return res.status(200).send({ success: true, message: 'Collection deleted successfully!' });
