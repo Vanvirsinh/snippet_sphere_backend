@@ -7,14 +7,14 @@ const fetchCollectionSpecificSnippet = async (req, res) => {
         let snippets;
 
         if (req.params.username === req.isUserAuthenticated.user) {
-            let collectionObjectId = await Collection.findOne({ collectionId: req.params.collectionId, authorName: req.params.username }).select('_id');
+            let collectionObjectId = await Collection.findOne({ collectionId: req.params.collectionId, authorName: req.params.username }).select('collectionId');
             if (collectionObjectId) {
-                snippets = await Snippet.find({ collectionId: collectionObjectId._id });
+                snippets = await Snippet.find({ collectionId: collectionObjectId.collectionId });
             }
         } else {
-            let collectionObjectId = await Collection.findOne({ collectionId: req.params.collectionId, authorName: req.params.username, isPublic: true }).select('_id');
+            let collectionObjectId = await Collection.findOne({ collectionId: req.params.collectionId, authorName: req.params.username, isPublic: true }).select('collectionId');
             if (collectionObjectId) {
-                snippets = await Snippet.find({ collectionId: collectionObjectId._id });
+                snippets = await Snippet.find({ collectionId: collectionObjectId.collectionId });
             }
         }
 

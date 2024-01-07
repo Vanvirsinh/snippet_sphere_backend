@@ -1,5 +1,6 @@
 require('dotenv').config();
 require('./connection');
+const cors = require('cors');
 const express = require('express');
 const otpRoute = require('./routes/auth/otpRoute');
 const authRoute = require('./routes/auth/authRoute');
@@ -13,6 +14,7 @@ const likeRoute = require('./routes/snippets/likeRoute');
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 app.use('/api/auth', otpRoute);
 app.use('/api/auth', authRoute);

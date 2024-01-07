@@ -5,7 +5,7 @@ const deleteCollection = async (req, res) => {
 
     try {
 
-        const collection = await Collection.findOne({ _id: req.params.id, authorId: req.user.id });
+        const collection = await Collection.findOne({ collectionId: req.params.id, authorId: req.user.id });
 
         if (!collection) {
             return res.status(400).send({ success: false, message: 'Collection not found!' });
@@ -14,7 +14,7 @@ const deleteCollection = async (req, res) => {
         const snippets = await Snippet.find({ collectionId: req.params.id });
 
         if (!snippets || snippets.length === 0) {
-            await Collection.findByIdAndDelete(req.params.id);
+            await Collection.findOneAndDelete({collectionId: req.params.id});
             return res.status(200).send({ success: true, message: 'Collection deleted successfully!' });
         }
 

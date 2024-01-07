@@ -17,7 +17,7 @@ const updateSnippet = async (req, res) => {
             return res.status(400).send({ success: false, errors: errors.array() });
         }
 
-        const { title, code, language, description } = req.body;
+        const { title, code, language, description, collectionId } = req.body;
 
         const snippet = await Snippet.findOne({ _id: req.params.id, authorId: req.user.id });
 
@@ -26,7 +26,7 @@ const updateSnippet = async (req, res) => {
         }
 
         // Update the snippet
-        await Snippet.updateOne({ _id: req.params.id }, { $set: { title, code, language, description, updatedAt: getDate() } });
+        await Snippet.updateOne({ _id: req.params.id }, { $set: { title, code, language, description, collectionId, updatedAt: getDate() } });
         try {
             return res.status(201).send({ success: true, message: 'Snippet updated successfully!' });
         } catch (error) {

@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken');
 const isAuthenticated = async (req, res, next) => {
     try {
         const token = req.header('auth-token');
-        if (!token) {
+        
+        if (token === undefined || token === null) {
             req.isUserAuthenticated = { auth: false, user: null };
             return next();
         }

@@ -25,7 +25,7 @@ const addProfile = async (req, res) => {
         try {
             return res.status(201).send({ success: true, message: 'Profile Updated Successfully!' })
         } catch {
-            return res.status(400).send({ success: false, message: 'Error occured while updating profile!' })
+            return res.status(400).send({ success: false, message: 'Error occurred while updating profile!' })
         }
 
     } catch (error) {

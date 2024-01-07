@@ -11,7 +11,7 @@ const getUserProfile = async (req, res) => {
             return res.status(200).send({ success: true, profile });
 
         } catch {
-            return res.status(400).send({ success: false, message: "Error occured while fetching profile data!" });
+            return res.status(400).send({ success: false, message: "Error occurred while fetching profile data!" });
         }
 
     } catch(error) {

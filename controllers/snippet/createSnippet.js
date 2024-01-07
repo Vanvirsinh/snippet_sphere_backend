@@ -34,12 +34,12 @@ const createSnippet = async (req, res) => {
         }
 
         const { title, code, language, description, tags, } = req.body;
-        const snippetId = await checkUniquenessOfId(collection._id);
+        const snippetId = await checkUniquenessOfId(collection.collectionId);
 
         const newSnippet = new Snippet({
             authorId: req.user.id,
             authorName: req.params.username,
-            collectionId: collection._id,
+            collectionId: collection.collectionId,
             snippetId,
             title,
             code,
