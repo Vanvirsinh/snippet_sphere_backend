@@ -35,7 +35,7 @@ const resetPassword = async (req, res) => {
             return res.status(404).send({ success: false, message: "Oops! Invalid Password!" });
         }
 
-        // Password cros-checking
+        // Password cross-checking
         if (newPassword !== confirmNewPassword) {
             return res.status(400).send({ success: false, message: "Password mismatch, please re-enter matching passwords!" })
         }
@@ -49,7 +49,7 @@ const resetPassword = async (req, res) => {
         try {
             return res.status(200).send({ success: true, message: 'Password updated successfully. Please login!' })
         } catch {
-            return res.status(400).send({ success: false, message: 'Error occured while updating password!' })
+            return res.status(400).send({ success: false, message: 'Error occurred while updating password!' })
         }
 
     } catch (error) {

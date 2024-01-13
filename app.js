@@ -10,11 +10,13 @@ const snippetRoute = require('./routes/snippets/snippetRoute');
 const followRoute = require('./routes/profile/followRoute');
 const commentRoute = require('./routes/snippets/commentRoute');
 const likeRoute = require('./routes/snippets/likeRoute');
+const pinRoute = require('./routes/snippets/pinRoute');
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.use(express.static(__dirname + '/public'));
 
 app.use('/api/auth', otpRoute);
 app.use('/api/auth', authRoute);
@@ -24,6 +26,7 @@ app.use('/api/snippet', snippetRoute);
 app.use('/api/follow', followRoute);
 app.use('/api/comment', commentRoute);
 app.use('/api/like', likeRoute);
+app.use('/api/pin', pinRoute);
 
 const port = process.env.PORT;
 

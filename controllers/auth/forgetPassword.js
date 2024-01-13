@@ -30,7 +30,7 @@ const forgetPassword = async (req, res) => {
             return res.status(404).send({ success: false, message: "No user found with this email!" });
         }
 
-        // Password cros-checking
+        // Password cross-checking
         if (password !== confirmPassword) {
             return res.status(400).send({ success: false, message: "Password mismatch, please re-enter matching passwords!" })
         }
@@ -55,7 +55,7 @@ const forgetPassword = async (req, res) => {
         try {
             return res.status(200).send({ success: true, message: 'Password updated successfully. Please login!' })
         } catch {
-            return res.status(400).send({ success: false, message: 'Error occured while updating password!' })
+            return res.status(400).send({ success: false, message: 'Error occurred while updating password!' })
         }
 
     } catch (error) {

@@ -33,11 +33,11 @@ const fetchUserSpecificSnippet = async (req, res) => {
         if (req.params.username === req.isUserAuthenticated.user) {
             snippets = await Snippet.find({ authorName: req.params.username });
         } else {
-            const collections = await Collection.find({ authorName: req.params.username, isPublic: true }).select('_id');
+            const collections = await Collection.find({ authorName: req.params.username, isPublic: true }).select('collectionId');
             if (!collections) {
                 return res.status(400).send({ success: false, message: 'Public collections not found for this user!' });
             }
-            const collectionIds = collections.map(id => id._id);
+            const collectionIds = collections.map(id => id.collectionId);
             snippets = await Snippet.find({ collectionId: { $in: collectionIds } });
         }
 

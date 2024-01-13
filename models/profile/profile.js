@@ -20,13 +20,14 @@ const profileSchema = new mongoose.Schema({
         ref: 'User'
     }],
     personalEmail: {
-        type: String
+        type: String,
+        default: ''
     },
     websiteUrl: {
         type: String,
         default: ''
     },
-    GitHubProfile: {
+    gitHubProfile: {
         type: String,
         default: ''
     },

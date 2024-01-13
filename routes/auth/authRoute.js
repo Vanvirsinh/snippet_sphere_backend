@@ -11,6 +11,6 @@ router.get('/getUser', fetchUser, getUser);
 router.post('/register', validateUserRegistration, register);
 router.post('/login', validateUserLogin, login);
 router.post('/forget-password', validateForgetPassword, forgetPassword);
-router.post('/reset-password', validateResetpassword, resetPassword);
+router.post('/reset-password', fetchUser, validateResetpassword, resetPassword);
 
 module.exports = router;

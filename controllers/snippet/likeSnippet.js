@@ -10,15 +10,19 @@ const likeSnippet = async (req, res) => {
             return res.status(404).send({ success: false, message: 'Snippet not found' });
         }
 
+        let message;
+
         if (snippetsToLike.likes.includes(likingUserId)) {
             snippetsToLike.likes.pop(likingUserId);
+            message = "Snippet UnLiked";
         } else {
             snippetsToLike.likes.push(likingUserId);
+            message = "Snippet Liked";
         }
 
         await snippetsToLike.save();
         try {
-            return res.status(201).send({ success: true, message: 'Snippet Liked!' })
+            return res.status(201).send({ success: true, message })
         } catch (error) {
             return res.status(400).send({ success: false, message: error.message })
         }

@@ -45,6 +45,12 @@ const snippetSchema = new mongoose.Schema({
       ref: "User",
     },
   ],
+  pins: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
   comments: [
     {
       type: mongoose.Schema.Types.ObjectId,

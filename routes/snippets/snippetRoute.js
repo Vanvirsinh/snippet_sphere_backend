@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createSnippet, validteCraeteSnippet } = require('../../controllers/snippet/createSnippet');
+const { createSnippet, validateCreateSnippet } = require('../../controllers/snippet/createSnippet');
 const { fetchUser } = require('../../middleware/fetchUser');
 const { fetchAllSnippets } = require('../../controllers/snippet/fetchAllSnippets');
 const { fetchUserSpecificSnippet, isAuthenticated } = require('../../controllers/snippet/fetchUserSpecificSnippet');
@@ -9,9 +9,11 @@ const { fetchCollectionSpecificSnippet } = require('../../controllers/snippet/fe
 const { validateUpdateSnippet, updateSnippet } = require('../../controllers/snippet/updateSnippet');
 const { deleteSnippet } = require('../../controllers/snippet/deleteSnippet');
 const { changeSnippetCollection } = require('../../controllers/snippet/changeSnippetCollection');
+const { pinnedSnippets } = require('../../controllers/snippet/fetchPinnedSnippet');
 
-router.post('/:username/:id', fetchUser, validteCraeteSnippet, createSnippet);
+router.post('/:username/:id', fetchUser, validateCreateSnippet, createSnippet);
 router.get('/', fetchAllSnippets);
+router.get('/pinned-snippets/:username', fetchUser, pinnedSnippets);
 router.get('/:username', isAuthenticated, fetchUserSpecificSnippet);
 router.get('/:username/collection/:collectionId', isAuthenticated, fetchCollectionSpecificSnippet);
 router.get('/:username/:snippetId', isAuthenticated, fetchSingleSnippet);

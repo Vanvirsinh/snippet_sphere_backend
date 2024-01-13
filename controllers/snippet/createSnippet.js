@@ -4,7 +4,7 @@ const { getDate } = require('../../utils/date');
 const { body, validationResult } = require('express-validator');
 const { generateRandomId } = require('../../utils/randomString');
 
-const validteCraeteSnippet = [
+const validateCreateSnippet = [
     body('title').notEmpty().withMessage('Enter snippet title!').isLength({ max: 150 }).withMessage('Title should not be more than 150 characters!'),
     body('code').notEmpty().withMessage("Code can't be empty!"),
     body('language').notEmpty().withMessage('Select a programming language!').isLength({ max: 40 }).withMessage('Language can not be more than 40 characters!'),
@@ -30,7 +30,7 @@ const createSnippet = async (req, res) => {
         const collection = await Collection.findOne({ authorId: req.user.id, authorName: req.params.username, collectionId: req.params.id });
 
         if (!collection) {
-            return res.status(400).send({ success: false, message: "No collection associated with the creation of this snippet!" });
+            return res.status(400).send({ success: false, message: "Please select the collection where you want to store snippet!" });
         }
 
         const { title, code, language, description, tags, } = req.body;
@@ -61,4 +61,4 @@ const createSnippet = async (req, res) => {
     }
 }
 
-module.exports = { createSnippet, validteCraeteSnippet };
+module.exports = { createSnippet, validateCreateSnippet };
